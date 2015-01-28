@@ -4,7 +4,7 @@
 ///author James Marlowe
 //
 
-#include <zmq/zmqcpp.h>
+#include "zmq/zmqcpp.h"
 #include <sstream>
 #include <list>
 #include <iostream>
@@ -20,10 +20,10 @@ int main (int argc, char *argv[])
     zmqcpp::Socket socket (ZMQ_REQ);
     std::cout << "Connecting to server…" << std::endl;
     socket.connect (base + argv[1]);
-    socket.send (zmq::message_t msg ("__ready", 7));
+    socket.send (zmqcpp::Message("__ready"));
     while (true)
     {
-        zmqcpp::message_t request_msg;
+        zmqcpp::Message request_msg;
         socket.recv (request_msg);
         zmqcpp::Message reply_msg;
         reply_msg.add_frame (* (request_msg.frames().front()));

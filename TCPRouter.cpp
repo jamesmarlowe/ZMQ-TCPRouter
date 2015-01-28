@@ -15,7 +15,7 @@ const int BACK = 1;
 void fwd_req (zmq::socket_t &f, zmq::socket_t &b, std::list<std::string> &workers);
 void fwd_rep (zmq::socket_t &b, zmq::socket_t &f, std::list<std::string> &workers);
 
-int main()
+int main(int argc, char *argv[])
 {
     std::string base = "tcp://*:";
     if (argc < 3)
