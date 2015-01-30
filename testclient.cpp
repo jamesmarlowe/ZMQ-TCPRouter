@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     }
     zmqcpp::Socket sock(ZMQ_STREAM);
     std::cout << "Connecting to server…" << std::endl;
-    sock.connect(base + argv[1]);
+    sock.connect((base + argv[1]).c_str());
     uint8_t id [256];
     size_t id_size = 256;
 

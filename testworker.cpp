@@ -17,7 +17,7 @@ int main (int argc, char *argv[])
     }
     zmqcpp::Socket socket (ZMQ_REQ);
     std::cout << "Connecting to server…" << std::endl;
-    socket.connect (base + argv[1]);
+    socket.connect ((base + argv[1]).c_str());
     std::cout << "Registering with router…" << std::endl;
     socket.send (zmqcpp::Message("__ready"));
     std::cout << "Waiting…" << std::endl;

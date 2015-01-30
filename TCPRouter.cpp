@@ -31,8 +31,8 @@ int main(int argc, char *argv[])
         { (void *)front, 0, ZMQ_POLLIN, 0},
         { (void *) back, 0, ZMQ_POLLIN, 0}
     };
-    front.bind (base + argv[1]);
-    back.bind (base + argv[2]);
+    front.bind ((base + argv[1]).c_str());
+    back.bind ((base + argv[2]).c_str());
     std::list<std::string> workers;
     while (true)
     {
