@@ -23,10 +23,16 @@ set(test_worker_sources
     testworker.cpp
 )
 
+set(test_client_sources
+    testclient.cpp
+)
+
 add_subdirectory(zmq)
 
 add_executable (tcprouter ${tcprouter_sources})
 add_executable (testworker ${test_worker_sources})
+add_executable (testclient ${test_worker_sources})
 
 target_link_libraries (tcprouter zmq)
 target_link_libraries (testworker zmqcpp)
+target_link_libraries (testclient zmqcpp)
