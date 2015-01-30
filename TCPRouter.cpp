@@ -1,7 +1,7 @@
 //
-///file TCPRouter.cpp
-///brief A router that takes a TCP stream and sends it to the backend
-///author James Marlowe
+/// \file TCPRouter.cpp
+/// \brief A router that takes a TCP stream and sends it to the backend
+/// \author James Marlowe
 //
 
 #include <zmq.hpp>
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     std::string base = "tcp://*:";
     if (argc < 3)
     {
-        std::cerr << "Usage: " << argv[0] << " in_port(example: 5555) out_port(example:5556)" << std::endl;
+        std::cerr << "Usage: " << argv[0] << " client_port(example: 5555) worker_port(example:5556)" << std::endl;
         exit (1);
     }
     zmq::context_t ctx (1);
