@@ -24,7 +24,6 @@ int main(void)
     FCGX_InitRequest (&request, 0, 0);
     /////////////////////////////// zmq setup ////////////////////////////////
     zmqcpp::Socket sock(ZMQ_STREAM);
-    std::cout << "Connecting to server…" << std::endl;
     sock.connect("tcp://localhost:5555");
     sock._conn();
     uint8_t id [256];
@@ -33,14 +32,22 @@ int main(void)
 
     while (FCGX_Accept_r (&request) == 0)
     {
+        /////////////////////////// get fcgi input ///////////////////////////
+        fcgi_streambuf cin_fcgi_streambuf (request.in);
+        fcgi_streambuf cout_fcgi_streambuf (request.out);
+        fcgi_streambuf cerr_fcgi_streambuf (request.err);
+        cin.rdbuf (&cin_fcgi_streambuf);
+        cout.rdbuf (&cout_fcgi_streambuf);
+        cerr.rdbuf (&cerr_fcgi_streambuf);
+        /////////////////////////// call zmq ///////////////////////////
         std::string send = "test request";
-        std::cout << "Content-type: text/html\r\n\r\n Client sending : " << send << std::endl;
+        std::cout << "Content-type: text/html\r\n\r\nClient sending : " << send;
         sock.raw_sock().send(id, id_size, ZMQ_SNDMORE);
         sock.raw_sock().send((void*)send.c_str(), send.size());
         sock.raw_sock().recv(id, 256);
         zmqcpp::Message msg;
         sock.recv(msg);
-        std::cout << "Content-type: text/html\r\n\r\n Client received : " << msg.last() << std::endl;
+        std::cout << "\nClient received : " << msg.last() << "\n";
     }
     /////////////////////////////// cleanup ///////////////////////////////
     // restore stdio streambufs
