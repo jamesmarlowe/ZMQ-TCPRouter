@@ -31,7 +31,7 @@ add_subdirectory(zmq)
 
 add_executable (tcprouter ${tcprouter_sources})
 add_executable (testworker ${test_worker_sources})
-add_executable (testclient ${test_worker_sources})
+add_executable (testclient ${test_client_sources})
 
 target_link_libraries (tcprouter zmq)
 target_link_libraries (testworker zmqcpp)
